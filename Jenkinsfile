@@ -2,21 +2,27 @@ pipeline {
     agent { label "ubuntuos" }
 
     stages {
-        stage ('Print') {
+        stage ('Build project') {
             steps {
-                echo "Hello Devops Engineers"
+                sh "mvn clean install"
+            }
+        }
+        
+        stage('assume role ') {
+            steps {
+                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'shbaliaws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                     sh "aws sts get-caller-identity" // or whatever
+                }
+          
             }
         }
     }
+    
+    
     post {
         always {
-            echo 'I will always say Hello again!'
+            echo 'archive to S3'
         }
-        success {
-            echo 'I will say Hello only if job is success'
-        }
-        failure {
-            echo 'I will say Hello only if job is failure'
-        }
+        
     }
 }
