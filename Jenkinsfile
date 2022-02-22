@@ -19,10 +19,15 @@ pipeline {
       steps {
 
         echo "Whoami"
-        sh "aws sts get-caller-identity" // or whatever
+        sh '''
+          export AWS_PROFILE=cloudbees-ps
+          /tmp/opscore iam refresh --account cloudbees-ps --role infra-admin --profile cloudbees-ps
+          aws sts get-caller-identity
+        ''' 
 
         echo "create tag"
         sh '''
+        
               echo "Build tag: $BUILD_TAG"
         '''
       }
