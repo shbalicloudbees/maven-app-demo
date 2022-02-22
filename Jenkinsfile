@@ -18,18 +18,18 @@ pipeline {
 
     stage('Check role ') {
       steps {
-
+/*
         echo "Whoami"
         sh '''
           export AWS_PROFILE=cloudbees-ps
           /tmp/opscore iam refresh --account cloudbees-ps --role infra-admin --profile cloudbees-ps
           aws sts get-caller-identity
         ''' 
-
+*/
         echo "create tag"
         sh '''
-             mkdir outputfolder 
-             cp -a target/. outputfolder
+          //   mkdir outputfolder 
+         //    cp -a target/. outputfolder
              echo "Build tag: $BUILD_TAG"
              echo "GIT COMMIT $ID_GIT_COMMIT"
         '''
