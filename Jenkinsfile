@@ -5,6 +5,7 @@ pipeline {
   environment {
     VERSION = "$BUILD_TIMESTAMP"
     AWS_DEFAULT_REGION = "us-east-1"
+    ID_GIT_COMMIT = "${GIT_COMMIT}"
  //   AWS_CREDS = credentials('shbaliaws')
   }
   stages {
@@ -30,6 +31,7 @@ pipeline {
              mkdir outputfolder 
              cp -a target/. outputfolder
              echo "Build tag: $BUILD_TAG"
+             echo "GIT COMMIT $ID_GIT_COMMIT"
         '''
       }
 
