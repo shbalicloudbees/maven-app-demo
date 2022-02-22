@@ -5,7 +5,7 @@ pipeline {
   environment {
     VERSION = "$BUILD_TIMESTAMP"
     AWS_DEFAULT_REGION = "us-east-1"
-    AWS_CREDS = credentials('shbaliaws')
+ //   AWS_CREDS = credentials('shbaliaws')
   }
   stages {
 
