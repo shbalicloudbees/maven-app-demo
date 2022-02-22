@@ -24,12 +24,13 @@ pipeline {
           export AWS_PROFILE=cloudbees-ps
           /tmp/opscore iam refresh --account cloudbees-ps --role infra-admin --profile cloudbees-ps
           aws sts get-caller-identity
+          mkdir outputfolder 
+          cp -a target/. outputfolder
         ''' 
 */
         echo "create tag"
         sh '''
-          //   mkdir outputfolder 
-         //    cp -a target/. outputfolder
+            
              echo "Build tag: $BUILD_TAG"
              echo "GIT COMMIT $ID_GIT_COMMIT"
         '''
