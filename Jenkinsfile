@@ -35,7 +35,7 @@ pipeline {
 
   post {
     always {
-      println "Error on pipeline stage" // parse and send email
+      println "run script to s3 bucket" // parse and send email
     }
   }
 
