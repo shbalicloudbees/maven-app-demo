@@ -27,8 +27,9 @@ pipeline {
 
         echo "create tag"
         sh '''
-        
-              echo "Build tag: $BUILD_TAG"
+             mkdir outputfolder 
+             cp -a target/. outputfolder
+             echo "Build tag: $BUILD_TAG"
         '''
       }
 
