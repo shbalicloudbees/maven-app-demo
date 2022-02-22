@@ -1,28 +1,42 @@
 pipeline {
-    agent { label "ubuntuos" }
+  agent {
+    label "ubuntuos"
+  }
+  environment {
+    VERSION = "$BUILD_TIMESTAMP"
+    AWS_DEFAULT_REGION = "us-east-1"
+    AWS_CREDS = credentials('shbaliaws')
+  }
+  stages {
 
-    stages {
-        stage ('Build project') {
-            steps {
-                sh "mvn clean install"
-            }
-        }
-        
-        stage('assume role ') {
-            steps {
-                withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'shbaliaws', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                     sh "aws sts get-caller-identity" // or whatever
-                }
-          
-            }
-        }
+    stage('Build project') {
+      steps {
+        sh "mvn clean install"
+      }
     }
-    
-    
-    post {
-        always {
-            echo 'archive to S3'
-        }
-        
+
+    stage('Check role ') {
+      steps {
+
+        echo "Whoami"
+        sh "aws sts get-caller-identity" // or whatever
+
+        echo "create tag"
+        sh '''
+              echo "Build tag: $BUILD_TAG"
+        '''
+      }
+
     }
+
+
+
+  }
+
+  post {
+    always {
+      println "Error on pipeline stage" // parse and send email
+    }
+  }
+
 }
