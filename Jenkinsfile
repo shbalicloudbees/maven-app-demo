@@ -9,12 +9,12 @@ pipeline {
  //   AWS_CREDS = credentials('shbaliaws')
   }
   stages {
-
+</**
     stage('Build project') {
       steps {
-      //  sh "mvn clean package"
+       sh "mvn clean package"
       }
-    }
+    }*/
 
     stage('Check role ') {
       steps {
