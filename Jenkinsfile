@@ -33,6 +33,7 @@ pipeline {
             
              echo "Build tag: $BUILD_TAG"
              echo "GIT COMMIT $ID_GIT_COMMIT"
+             echo " build time $BUILD_TIMESTAMP"
         '''
       }
 
