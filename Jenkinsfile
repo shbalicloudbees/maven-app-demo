@@ -1,3 +1,4 @@
+@Library('roche-library') _
 pipeline {
   agent {
     label "ubuntuos"
@@ -6,6 +7,8 @@ pipeline {
     VERSION = "$BUILD_TIMESTAMP"
     AWS_DEFAULT_REGION = "us-east-1"
     ID_GIT_COMMIT = "${GIT_COMMIT}"
+    TIMESTAMP_ROCHE= getTimeStamp()
+    ROCHE_TAG="${GIT_COMMIT}-${BUILD_TAG}-${TIMESTAMP_ROCHE}"
  //   AWS_CREDS = credentials('shbaliaws')
   }
   stages {
@@ -31,9 +34,8 @@ pipeline {
         echo "create tag"
         sh '''
             
-             echo "Build tag: $BUILD_TAG"
-             echo "GIT COMMIT $ID_GIT_COMMIT"
-             echo " build time $BUILD_TIMESTAMP"
+          
+             echo " build tag $ROCHE_TAG"
         '''
       }
 
