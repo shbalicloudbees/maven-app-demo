@@ -1,10 +1,8 @@
 //@Library('roche-library') _/
 pipeline {
-  agent any
-  /*
-  {
+  agent {
     label "ubuntuos"
-  }*/
+  }
   environment {
     VERSION = "$BUILD_TIMESTAMP"
     AWS_DEFAULT_REGION = "us-east-1"
